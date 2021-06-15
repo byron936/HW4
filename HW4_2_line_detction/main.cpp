@@ -20,6 +20,7 @@ int main()
         for (int i = 0;; i++)
         {
             char recv = fgetc(devin);
+            printf("%c", recv);
             if (recv == '\n')
             {
                 printf("\r\n");

@@ -43,10 +43,14 @@ while(True):
     # any two lines about to be merged. The default setting allows for 15 degrees.
 
     for l in img.find_line_segments(merge_distance=0, max_theta_diff=5):
-        region = l[0] > 70 and l[0] < 130 and l[2] > 70 and l[2] < 130 and (l[1] < 40 or l[3] < 40) and (l[6] < 20 or l[6] > 160)
+        # region = l[0] > 70 and l[0] < 130 and l[2] > 70 and l[2] < 130 and (l[1] < 40 or l[3] < 40) and (l[6] < 20 or l[6] > 160)
         if l.magnitude() > 20 and (l.y1() < 40 and l.y2() < 40):
+            uart.write(("x1 %d\r\n" % l.x1()).encode())
+            uart.write(("x2 %d\r\n" % l.x2()).encode())
+            uart.write(("y1 %d\r\n" % l.y1()).encode())
+            uart.write(("y2 %d\r\n" % l.y2()).encode())
           # img.draw_line(l.line(), color = (255, 0, 0))
-        # uart.write(("theta %d\r\n" % l.theta()).encode())
+            # uart.write(("theta %d\r\n" % l.theta()).encode())
             if l[6] < 10 or l[6] > 170:
                 uart.write("/goStraight/run -30 \n".encode())
                 time.sleep(0.3)
